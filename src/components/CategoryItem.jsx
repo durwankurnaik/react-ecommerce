@@ -25,14 +25,15 @@ const Info = styled.div`
 const Title = styled.h1`
   font-size: 35px;
   font-weight: 600;
-  margin-bottom: 20px
-  // color: white to be applied when images loads up
+  margin-bottom: 20px;
+  color: white;
 `;
 const Button = styled.button`
-  border: 2px solid black;
+  border: 2px solid white;
   padding: 8px;
   font-weight: 600;
   background-color: transparent;
+  color: white;
   cursor: pointer;
 `;
 
