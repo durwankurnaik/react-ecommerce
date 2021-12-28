@@ -3,7 +3,7 @@ import { Badge } from "@material-ui/core";
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 10px 20px;
+  padding: 20px 20px;
   display: flex;
   justify-content: space-between;
 `;
