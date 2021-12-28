@@ -12,7 +12,7 @@ const Navbar = () => {
           <Search style={{ color: "gray", fontSize: "16px" }} />
         </div>
       </div>
-      <div className="flex-1 text-center font-bold text-2xl">Florange</div>
+      <div className="flex-1 text-center font-bold text-2xl">Florange Fashions.</div>
       <div className="flex-1 text-right space-x-5">
         <span className="cursor-pointer hover:text-teal-500">Register</span>
         <span className="cursor-pointer hover:text-teal-500">Signin</span>
