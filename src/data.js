@@ -1,38 +1,77 @@
-export const category = [
+export const sliderItems = [
   {
     id: 1,
-    img: "https://m.media-amazon.com/images/I/71ihRhwM2DL._AC_UL480_FMwebp_QL65_.jpg",
-    title: "Casuals",
+    img: "https://i.ibb.co/XsdmR2c/1.png",
+    title: "WINTER SALE",
+    desc: "Upto 70% off on popular brands with additional benefits",
+    bg: "f5fafd",
   },
   {
     id: 2,
-    img: "https://m.media-amazon.com/images/I/61VJ4kZQQkL._AC_UL480_FMwebp_QL65_.jpg",
-    title: "Formals",
+    img: "https://i.ibb.co/XsdmR2c/1.png",
+    title: "AUTUMM COLLECTION",
+    desc: "Upto 70% off on popular brands with additional benefits",
+    bg: "f6f1ed",
   },
   {
     id: 3,
-    img: "https://m.media-amazon.com/images/I/31g-2CAhk3S._AC_UL480_FMwebp_QL65_.jpg",
-    title: "Jackets",
+    img: "https://i.ibb.co/XsdmR2c/1.png",
+    title: "NEW YEAR SALE",
+    desc: "Upto 70% off on popular brands with additional benefits",
+    bg: "fbf0f4",
+  },
+];
+
+export const category = [
+  {
+    id: 1,
+    img: "https://images.pexels.com/5886041/pexels-photos-5886041.jpg",
+    title: "SHIRT STYLES",
+  },
+  {
+    id: 2,
+    img: "https://images.pexels.com/2983464/pexels-photos-2983464.jpg",
+    title: "SUMMER WEARS",
+  },
+  {
+    id: 3,
+    img: "https://images.pexels.com/5480696/pexels-photos-5480696.jpg",
+    title: "LIGHT JACKETS",
+  },
+];
+
+export const popularProducts = [
+  {
+    id: 1,
+    img: "placeholder",
+  },
+  {
+    id: 2,
+    img: "placeholder",
+  },
+  {
+    id: 3,
+    img: "placeholder",
   },
   {
     id: 4,
-    img: "https://m.media-amazon.com/images/I/61R11o1DC+S._AC_UL480_FMwebp_QL65_.jpg",
-    title: "Track Pants",
+    img: "placeholder",
   },
   {
     id: 5,
-    img: "https://m.media-amazon.com/images/I/61Don-d8JfL._AC_UL480_FMwebp_QL65_.jpg",
-    title: "Jeans",
+    img: "placeholder",
   },
   {
     id: 6,
-    img: "https://m.media-amazon.com/images/I/71r+f39mRbL._AC_UL480_FMwebp_QL65_.jpg",
-    title: "Summer Wears",
+    img: "placeholder",
   },
   {
     id: 7,
-    img: "https://m.media-amazon.com/images/I/71UEh5AujaL._AC_UL480_FMwebp_QL65_.jpg",
-    title: "Sweat Shirts",
+    img: "placeholder",
+  },
+  {
+    id: 8,
+    img: "placeholder",
   },
 ];
 
