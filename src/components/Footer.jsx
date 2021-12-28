@@ -65,6 +65,7 @@ const List = styled.ul`
 const ListItem = styled.li`
   width: 50%;
   margin-bottom: 4px;
+  list-style: none;
 `;
 
 const Right = styled.div`

@@ -1,10 +1,19 @@
-import React from 'react'
+import styled from "styled-components"
+
+const Container = styled.div`
+  height: 30px;
+  background-color: teal;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 const Announcemet = () => {
   return (
-    <div className='bg-teal-500 text-center font-semibold text-gray-100 py-1'>
-      Hurry up! Don't miss the New year sale
-    </div>
+    <Container>
+      Hurry up! Don't miss the End of the year sale.
+    </Container>
   )
 }
 

@@ -30,6 +30,8 @@ const Button = styled.button`
   flex: 1;
   background-color: teal;
   color: white;
+  cursor: pointer;
+  border: none;
 `;
 
 const NewsLetter = () => {

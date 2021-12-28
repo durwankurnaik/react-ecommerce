@@ -2,7 +2,7 @@ export const sliderItems = [
   {
     id: 1,
     img: "https://i.ibb.co/XsdmR2c/1.png",
-    title: "WINTER SALE",
+    title: "WINTER COLLECTION",
     desc: "Upto 70% off on popular brands with additional benefits",
     bg: "f5fafd",
   },
@@ -16,7 +16,7 @@ export const sliderItems = [
   {
     id: 3,
     img: "https://i.ibb.co/XsdmR2c/1.png",
-    title: "NEW YEAR SALE",
+    title: "END OF THE YEAR SALE",
     desc: "Upto 70% off on popular brands with additional benefits",
     bg: "fbf0f4",
   },

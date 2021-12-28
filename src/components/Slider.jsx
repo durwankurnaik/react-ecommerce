@@ -74,6 +74,8 @@ const Button = styled.button`
   border: 2px solid black;
   padding: 10px;
   font-size: 20px;
+  background-color: transparent;
+  cursor: pointer;
 `;
 
 const Slider = () => {
