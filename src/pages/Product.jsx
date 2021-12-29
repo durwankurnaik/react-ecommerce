@@ -5,6 +5,7 @@ import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
+import product1 from "../images/product1.jpg"
 
 const Container = styled.div``;
 
@@ -125,7 +126,7 @@ const Product = () => {
       <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+          <Image src={product1} />
         </ImgContainer>
         <InfoContainer>
           <Title>Denim Jumpsuit</Title>
