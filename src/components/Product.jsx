@@ -4,6 +4,7 @@ import {
   ShoppingCartOutlined,
 } from "@material-ui/icons";
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Info = styled.div`
   opacity: 0;
@@ -60,6 +61,8 @@ const Icon = styled.div`
   margin: 0 10px;
   transition: all 0.3s ease;
   cursor: pointer;
+
+  ${mobile({transition: "all 0.1s ease"})}
 
   &:hover{
     background-color: #e9f5f5;
