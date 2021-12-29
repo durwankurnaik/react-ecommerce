@@ -1,7 +1,7 @@
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import styled from "styled-components";
-import { mobile, tablet } from "../responsive";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   padding: 20px 20px;
@@ -43,7 +43,11 @@ const Input = styled.input`
 
 const Center = styled.div`
   flex: 1;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${mobile({ textAlign: "center" })}
 `;
 
 const Logo = styled.h1`

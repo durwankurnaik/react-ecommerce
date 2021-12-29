@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import login_bg from "../images/login_page_bg.jpeg";
+import {mobile} from "../responsive"
 
 const Container = styled.div`
   width: 100vw;
@@ -19,6 +20,8 @@ const Wrapper = styled.div`
   padding: 20px;
   width: 30%;
   background-color: white;
+
+  ${mobile({width: "80%"})}
 `;
 
 const Title = styled.h1`

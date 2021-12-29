@@ -3,10 +3,13 @@ import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
+import { mobile } from "../responsive";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 20px;
+
+  ${mobile({ padding: "10px" })}
 `;
 const Title = styled.h1`
   font-weight: 300;
@@ -28,7 +31,9 @@ const TopButton = styled.button`
   color: ${(props) => props.type === "filled" && "white"};
 `;
 
-const TopTexts = styled.div``;
+const TopTexts = styled.div`
+  ${mobile({ display: "none" })}
+`;
 
 const TopText = styled.span`
   text-decoration: underline;
@@ -39,6 +44,8 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: center;
+
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const Info = styled.div`
@@ -48,6 +55,8 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: 10px 0;
+  ${mobile({ flexDirection: "column" })}
 `;
 const ProductDetail = styled.div`
   flex: 2;
@@ -56,6 +65,8 @@ const ProductDetail = styled.div`
 
 const Image = styled.img`
   width: 200px;
+
+  ${mobile({width: "170px"})}
 `;
 
 const Details = styled.div`
@@ -85,17 +96,27 @@ const PriceDetail = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  ${mobile({
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: "20px 0 10px 0",
+  })}
 `;
 
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+
+  ${mobile({ margin: "0" })}
 `;
 
 const ProductAmount = styled.div`
   font-size: 24px;
-  margin: 5px;
+  margin: 10px;
+  
+  ${mobile({ margin: "0 15px" })}
 `;
 
 const ProductPrice = styled.div`
@@ -128,12 +149,12 @@ const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
 
 const Button = styled.button`
-    border: none;
-    width: 100%;
-    background-color: black;
-    color: white;
-    padding: 20px;
-    cursor: pointer;
+  border: none;
+  width: 100%;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  cursor: pointer;
 `;
 
 const Hr = styled.hr`
@@ -141,6 +162,8 @@ const Hr = styled.hr`
   border: none;
   height: 1px;
   width: 90%;
+
+  ${mobile({width: "100%"})}
 `;
 
 const Cart = () => {
@@ -178,9 +201,9 @@ const Cart = () => {
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
-                  <Remove />
+                  <Remove style={{cursor: "pointer"}} />
                   <ProductAmount>2</ProductAmount>
-                  <Add />
+                  <Add style={{cursor: "pointer"}} />
                 </ProductAmountContainer>
                 <ProductPrice>₹ 749</ProductPrice>
               </PriceDetail>
@@ -204,9 +227,9 @@ const Cart = () => {
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
-                  <Remove />
+                  <Remove style={{cursor: "pointer"}} />
                   <ProductAmount>2</ProductAmount>
-                  <Add />
+                  <Add style={{cursor: "pointer"}} />
                 </ProductAmountContainer>
                 <ProductPrice>₹ 550</ProductPrice>
               </PriceDetail>
