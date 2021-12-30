@@ -73,6 +73,9 @@ const Icon = styled.div`
 const Product = ({ item }) => {
   return (
     <Container>
+      <div style={{zIndex: 1}}>
+        {item.title}
+      </div>
       <Circle />
       <Image src={item.img} />
       <Info>
