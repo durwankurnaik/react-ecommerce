@@ -2,6 +2,7 @@ import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   padding: 20px 20px;
@@ -77,6 +78,11 @@ const MenuItems = styled.div`
   })}
 `;
 
+const LinkStyle = {
+  textDecoration: "none",
+  color: "black",
+};
+
 const Navbar = () => {
   return (
     <Container>
@@ -88,15 +94,23 @@ const Navbar = () => {
         </SearchContainer>
       </Left>
       <Center>
-        <Logo>Florange Fashions.</Logo>
+        <Logo>
+          <Link style={LinkStyle} to="/">Florange Fashions.</Link>
+        </Logo>
       </Center>
       <Right>
-        <MenuItems>REGISTER</MenuItems>
-        <MenuItems>SIGNIN</MenuItems>
         <MenuItems>
-          <Badge badgeContent={4} color="primary">
-            <ShoppingCartOutlined />
-          </Badge>
+          <Link style={LinkStyle} to="/register">REGISTER</Link>
+        </MenuItems>
+        <MenuItems>
+          <Link style={LinkStyle} to="/login">LOGIN</Link>
+        </MenuItems>
+        <MenuItems>
+          <Link style={LinkStyle} to="/cart">
+            <Badge badgeContent={4} color="primary">
+              <ShoppingCartOutlined />
+            </Badge>
+          </Link>
         </MenuItems>
       </Right>
     </Container>

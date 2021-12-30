@@ -136,6 +136,8 @@ const Summary = styled.div`
 
 const SummaryTitle = styled.h1`
   font-weight: 200;
+
+  ${mobile({textAlign: "center"})}
 `;
 
 const SummaryItem = styled.div`
