@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Product from "./pages/Product";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
+import Success from "./pages/Success"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/cart" element={<Cart />} />
         <Route exact path="/login" element={!isLogged ? <Login /> : <Navigate to="/" />} />
         <Route exact path="/register" element={!isLogged ? <Register /> : <Navigate to="/" />} />
+        <Route exact path="/success" element={<Success />} />
       </Routes>
     </Router>
   );

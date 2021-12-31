@@ -10,8 +10,7 @@ import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 
-const KEY =
-  "pk_test_51KCPD6SHOB1rfUCGU8lCOp8AOGw5B9GbwhvB3sex6VtLGML7Ncz0RnEUUCSGCZVQhfB8KpTc62HVXD8fGYkfEwJL00Tsj2Zfs5";
+const KEY = "pk_test_51KCPD6SHOB1rfUCGU8lCOp8AOGw5B9GbwhvB3sex6VtLGML7Ncz0RnEUUCSGCZVQhfB8KpTc62HVXD8fGYkfEwJL00Tsj2Zfs5"
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -89,7 +88,7 @@ const Image = styled.img`
 `;
 
 const Details = styled.div`
-  paddding: 20px;
+  padding: 20px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -196,8 +195,8 @@ const Hr = styled.hr`
 `;
 
 const Cart = () => {
-  const cart = useSelector((state) => state.cart);
-  const [stripeToken, setStripeToken] = useState("");
+  const cart = useSelector(state => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
 
   const onToken = (token) => {
@@ -207,8 +206,8 @@ const Cart = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await userRequest("/checkout/payment", {
-          tokenId: stripeToken,
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
           amount: cart.total * 100,
         });
         navigate("/success")
@@ -216,7 +215,7 @@ const Cart = () => {
         console.error(err);
       }
     };
-    makeRequest()
+    stripeToken && makeRequest()
   }, [cart.total, navigate, stripeToken]);
 
   return (
