@@ -5,7 +5,11 @@ import NewsLetter from "../components/NewsLetter";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
-import product1 from "../images/product1.jpg"
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../requestMethods";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -13,25 +17,26 @@ const Wrapper = styled.div`
   padding: 25px 50px;
   display: flex;
 
-  ${mobile({padding: "10px", flexDirection: "column"})}
+  ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 
 const ImgContainer = styled.div`
   flex: 1;
+  display: flex;
+  justify-content: center;
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 90vh;
+  height: 80vh;
   object-fit: cover;
 
-  ${mobile({height: "40vh"})}
+  ${mobile({ height: "40vh" })}
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0 50px;
-  ${mobile({marginTop: "20px", padding: "0 10px"})}
+  ${mobile({ marginTop: "20px", padding: "0 10px" })}
 `;
 
 const Title = styled.h1`
@@ -53,7 +58,7 @@ const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
 
-  ${mobile({width: "100%"})}
+  ${mobile({ width: "100%" })}
 `;
 
 const Filter = styled.div`
@@ -69,8 +74,9 @@ const FilterTitle = styled.span`
 const FilterColor = styled.div`
   width: 20px;
   height: 20px;
-  margin: 0 2px;
+  margin: 0 5px;
   border-radius: 50%;
+  border: 0.5px solid black;
   background-color: ${(props) => props.color};
   cursor: pointer;
 `;
@@ -88,7 +94,7 @@ const AddContainer = styled.div`
   width: 50%;
   justify-content: space-between;
 
-  ${mobile({width: "100%", marginBottom: "20px"})}
+  ${mobile({ width: "100%", marginBottom: "20px" })}
 `;
 
 const AmountContainer = styled.div`
@@ -114,54 +120,84 @@ const Button = styled.button`
   border: 2px solid teal;
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     background-color: #f8f4f4;
   }
-`
+`;
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+
+  const [quantity, setQuantity] = useState(1);
+
+  const [product, setProduct] = useState({});
+
+  const [color, setColor] = useState("");
+
+  const [size, setSize] = useState("");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get(`/products/find/${id}`);
+        setProduct(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getProduct();
+  }, [id]);
+
+  const addQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const removeQuantity = () => {
+    quantity > 1 && setQuantity(quantity - 1);
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
+  };
+
   return (
     <Container>
       <Announcement />
       <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Image src={product1} />
+          <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias minus
-            amet animi reprehenderit exercitationem aliquam ullam in
-            voluptatibus adipisci tempora?
-          </Desc>
-          <Price>₹ 569</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>₹ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="darkblue" />
-              <FilterColor color="gray" />
+              {product.color?.map((c) => (
+                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+              ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
-                <FilterSizeOption>XXL</FilterSizeOption>
+              <FilterSize onChange={(event) => setSize(event.target.value)}>
+                {product.size?.map((s) => (
+                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove style={{cursor: "pointer"}} />
-              <Amount>1</Amount>
-              <Add style={{cursor: "pointer"}} />
+              <Remove style={{ cursor: "pointer" }} onClick={removeQuantity} />
+              <Amount>{quantity}</Amount>
+              <Add style={{ cursor: "pointer" }} onClick={addQuantity} />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleAddToCart}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

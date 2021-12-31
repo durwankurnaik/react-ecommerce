@@ -4,8 +4,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
-import cart1 from "../images/cart1.png"
-import cart2 from "../images/cart2.png"
+import cart1 from "../images/cart1.png";
+import cart2 from "../images/cart2.png";
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -58,36 +59,55 @@ const Product = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
+
   ${mobile({ flexDirection: "column" })}
 `;
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
+
+  ${mobile({ flexDirection: "column" })}
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Image = styled.img`
-  width: 200px;
+  height: 30vh;
+  object-fit: cover;
 
-  ${mobile({width: "170px"})}
+  ${mobile({ height: "20vh" })}
 `;
 
 const Details = styled.div`
   paddding: 20px;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   margin-left: 20px;
+
+  ${mobile({ padding: "10px", margin: "0 10px" })}
 `;
 
-const ProductName = styled.span``;
+const ProductName = styled.span`
+  ${mobile({ margin: "15px 0" })}
+`;
 
-const ProductId = styled.span``;
+const ProductId = styled.span`
+`;
 
 const ProductColor = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
+
+  ${mobile({margin: "15px 0"})}
 `;
 
 const ProductSize = styled.span``;
@@ -117,7 +137,7 @@ const ProductAmountContainer = styled.div`
 const ProductAmount = styled.div`
   font-size: 24px;
   margin: 10px;
-  
+
   ${mobile({ margin: "0 15px" })}
 `;
 
@@ -137,7 +157,7 @@ const Summary = styled.div`
 const SummaryTitle = styled.h1`
   font-weight: 200;
 
-  ${mobile({textAlign: "center"})}
+  ${mobile({ textAlign: "center" })}
 `;
 
 const SummaryItem = styled.div`
@@ -167,10 +187,12 @@ const Hr = styled.hr`
   height: 1px;
   width: 90%;
 
-  ${mobile({width: "100%"})}
+  ${mobile({ width: "100%" })}
 `;
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+
   return (
     <Container>
       <Announcement />
@@ -187,57 +209,41 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src={cart1} />
-                <Details>
-                  <ProductName>
-                    <strong>Product: </strong>JESSIE THUNDER SHOES
-                  </ProductName>
-                  <ProductName>
-                    <strong>ID: </strong>038572905674
-                  </ProductName>
-                  <ProductColor color="black" />
-                  <ProductName>
-                    <strong>Size: </strong>10
-                  </ProductName>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Remove style={{cursor: "pointer"}} />
-                  <ProductAmount>2</ProductAmount>
-                  <Add style={{cursor: "pointer"}} />
-                </ProductAmountContainer>
-                <ProductPrice>₹ 749</ProductPrice>
-              </PriceDetail>
-            </Product>
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src={cart2} />
-                <Details>
-                  <ProductName>
-                    <strong>Product: </strong>HAKURA T-SHIRT
-                  </ProductName>
-                  <ProductId>
-                    <strong>ID: </strong>038573565669
-                  </ProductId>
-                  <ProductColor color="gray" />
-                  <ProductSize>
-                    <strong>Size: </strong>M
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Remove style={{cursor: "pointer"}} />
-                  <ProductAmount>2</ProductAmount>
-                  <Add style={{cursor: "pointer"}} />
-                </ProductAmountContainer>
-                <ProductPrice>₹ 550</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {cart.products.map((product) => (
+              <>
+                <Product>
+                  <ProductDetail>
+                    <ImageContainer>
+                      <Image src={product.img} />
+                    </ImageContainer>
+                    <Details>
+                      <ProductName>
+                        <strong>Product: </strong>
+                        {product.title}
+                      </ProductName>
+                      <ProductId>
+                        <strong>ID: </strong>
+                        {product._id}
+                      </ProductId>
+                      <ProductColor color="black" />
+                      <ProductSize>
+                        <strong>Size: </strong>
+                        {product.size}
+                      </ProductSize>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <Remove style={{ cursor: "pointer" }} />
+                      <ProductAmount>{product.quantity}</ProductAmount>
+                      <Add style={{ cursor: "pointer" }} />
+                    </ProductAmountContainer>
+                    <ProductPrice>₹ {product.price * product.quantity}</ProductPrice>
+                  </PriceDetail>
+                </Product>
+                <Hr />
+              </>
+            ))}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

@@ -41,7 +41,7 @@ export const category = [
     id: 1,
     img: category1,
     title: "SHIRT STYLE",
-    category: "woman"
+    category: "shirt"
   },
   {
     id: 2,
@@ -52,8 +52,8 @@ export const category = [
   {
     id: 3,
     img: category3,
-    title: "LIGHT JACKETS",
-    category: "jackets"
+    title: "JACKETS",
+    category: "jacket"
   },
 ];
 

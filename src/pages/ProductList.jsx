@@ -55,7 +55,7 @@ const ProductList = () => {
   const category = location.pathname.split("/")[2];
 
   const [filters, setFilters] = useState({});
-  const [sort, setSort] = useState("Newest")
+  const [sort, setSort] = useState("Newest");
 
   const handleFilter = (event) => {
     setFilters({
@@ -68,7 +68,10 @@ const ProductList = () => {
     <Container>
       <Announcement />
       <Navbar />
-      <Title>Dresses</Title>
+      <Title>
+        {category.charAt(0).toUpperCase() + category.slice(1, category.length)}
+        {/* This thing capitalizes the first letter of the category since they are not capitalized from start */}
+      </Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products: </FilterText>
@@ -83,6 +86,8 @@ const ProductList = () => {
               <Option>Blue</Option>
               <Option>Yellow</Option>
               <Option>Green</Option>
+              <Option>Gray</Option>
+              <Option>Others</Option>
             </Select>
             <Select name="size" onChange={handleFilter}>
               <Option disabled selected>
@@ -99,7 +104,7 @@ const ProductList = () => {
         </Filter>
         <Filter>
           <FilterText>Sort Products: </FilterText>
-          <Select onChange={event => setSort(event.target.value)}>
+          <Select onChange={(event) => setSort(event.target.value)}>
             <Option value="newest">Newest</Option>
             <Option value="asc">Price - Low to high</Option>
             <Option value="desc">Price - High to low</Option>

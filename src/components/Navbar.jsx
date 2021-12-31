@@ -3,6 +3,7 @@ import { Badge } from "@material-ui/core";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   padding: 20px 20px;
@@ -84,6 +85,8 @@ const LinkStyle = {
 };
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+
   return (
     <Container>
       <Left>
@@ -95,19 +98,25 @@ const Navbar = () => {
       </Left>
       <Center>
         <Logo>
-          <Link style={LinkStyle} to="/">Florange Fashions.</Link>
+          <Link style={LinkStyle} to="/">
+            Florange Fashions.
+          </Link>
         </Logo>
       </Center>
       <Right>
         <MenuItems>
-          <Link style={LinkStyle} to="/register">REGISTER</Link>
+          <Link style={LinkStyle} to="/register">
+            REGISTER
+          </Link>
         </MenuItems>
         <MenuItems>
-          <Link style={LinkStyle} to="/login">LOGIN</Link>
+          <Link style={LinkStyle} to="/login">
+            LOGIN
+          </Link>
         </MenuItems>
         <MenuItems>
           <Link style={LinkStyle} to="/cart">
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={quantity} color="primary">
               <ShoppingCartOutlined />
             </Badge>
           </Link>
