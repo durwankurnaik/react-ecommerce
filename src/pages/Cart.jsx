@@ -4,9 +4,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
-import cart1 from "../images/cart1.png";
-import cart2 from "../images/cart2.png";
 import { useSelector } from "react-redux";
+import StripeCheckout from "react-stripe-checkout";
+import { useEffect, useState } from "react";
+import { userRequest } from "../requestMethods";
+import { useNavigate } from "react-router-dom";
+
+const KEY =
+  "pk_test_51KCPD6SHOB1rfUCGU8lCOp8AOGw5B9GbwhvB3sex6VtLGML7Ncz0RnEUUCSGCZVQhfB8KpTc62HVXD8fGYkfEwJL00Tsj2Zfs5";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -91,23 +96,23 @@ const Details = styled.div`
   justify-content: space-around;
   margin-left: 20px;
 
-  ${mobile({ padding: "10px", margin: "0 10px" })}
+  ${mobile({ padding: "10px", margin: "0 10px", justifyContent: "center" })}
 `;
 
 const ProductName = styled.span`
   ${mobile({ margin: "15px 0" })}
 `;
 
-const ProductId = styled.span`
-`;
+const ProductId = styled.span``;
 
 const ProductColor = styled.div`
   width: 20px;
   height: 20px;
+  border: 0.5px solid black;
   border-radius: 50%;
   background-color: ${(props) => props.color};
 
-  ${mobile({margin: "15px 0"})}
+  ${mobile({ margin: "15px 0" })}
 `;
 
 const ProductSize = styled.span``;
@@ -192,6 +197,27 @@ const Hr = styled.hr`
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState("");
+  const navigate = useNavigate();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest("/checkout/payment", {
+          tokenId: stripeToken,
+          amount: cart.total * 100,
+        });
+        navigate("/success")
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    makeRequest()
+  }, [cart.total, navigate, stripeToken]);
 
   return (
     <Container>
@@ -225,7 +251,7 @@ const Cart = () => {
                         <strong>ID: </strong>
                         {product._id}
                       </ProductId>
-                      <ProductColor color="black" />
+                      <ProductColor color={product.color} />
                       <ProductSize>
                         <strong>Size: </strong>
                         {product.size}
@@ -238,7 +264,9 @@ const Cart = () => {
                       <ProductAmount>{product.quantity}</ProductAmount>
                       <Add style={{ cursor: "pointer" }} />
                     </ProductAmountContainer>
-                    <ProductPrice>₹ {product.price * product.quantity}</ProductPrice>
+                    <ProductPrice>
+                      ₹ {product.price * product.quantity}
+                    </ProductPrice>
                   </PriceDetail>
                 </Product>
                 <Hr />
@@ -249,7 +277,7 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>₹ 1299</SummaryItemPrice>
+              <SummaryItemPrice>₹ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -261,9 +289,21 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>₹ 1299</SummaryItemPrice>
+              <SummaryItemPrice>₹ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="Florange Fashions"
+              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+              currency="INR"
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>
