@@ -6,7 +6,7 @@ import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 
@@ -235,7 +235,7 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products.map((product) => (
-              <>
+              <React.Fragment key={product._id}>
                 <Product>
                   <ProductDetail>
                     <ImageContainer>
@@ -269,7 +269,7 @@ const Cart = () => {
                   </PriceDetail>
                 </Product>
                 <Hr />
-              </>
+              </React.Fragment>
             ))}
           </Info>
           <Summary>

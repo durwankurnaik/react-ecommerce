@@ -1,6 +1,9 @@
+import { useState } from "react";
 import styled from "styled-components";
 import login_bg from "../images/login_page_bg.jpeg";
-import {mobile} from "../responsive"
+import { mobile } from "../responsive";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/apiCalls";
 
 const Container = styled.div`
   width: 100vw;
@@ -21,7 +24,7 @@ const Wrapper = styled.div`
   width: 30%;
   background-color: white;
 
-  ${mobile({width: "80%"})}
+  ${mobile({ width: "80%" })}
 `;
 
 const Title = styled.h1`
@@ -42,32 +45,67 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  background-color: transparent;
   padding: 10px;
   margin: 10px 0;
   border: none;
   background-color: teal;
   color: white;
-  width: 20%;
   cursor: pointer;
+  width: 20%;
+
+  &:disabled {
+    color: green;
+    cursor: not-allowed;
+  }
 `;
 
 const Link = styled.span`
-    margin: 5px 0;
-    font-size: 12px;
-    text-decoration: underline;
-    cursor: pointer;
+  margin: 5px 0;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+const Error = styled.span`
+  color: red;
+  margin-bottom: 5px;
 `;
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { isFetching, error } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch(); // Creates a way to dispatch actions to redux
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+
+    login(dispatch, { username, password });
+    // Sends the login signal to redux with the username and password as its payload
+  };
+
   return (
     <Container bg={login_bg}>
       <Wrapper>
         <Title>SIGN IN</Title>
         <Form>
-          <Input placeholder="Email" />
-          <Input placeholder="Password" />
-          <Button>LOGIN</Button>
+          <Input
+            type="text"
+            placeholder="Username"
+            onChange={(event) => setUsername(event.target.value)}
+            value={username}
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            onChange={(event) => setPassword(event.target.value)}
+            value={password}
+          />
+          <Button onClick={handleLogin} disabled={isFetching}>
+            LOGIN
+          </Button>
+          {error && <Error>Something went wrong</Error>}
           <Link>FORGOT PASSWORD?</Link>
           <Link>CREATE AN ACCOUNT</Link>
         </Form>
